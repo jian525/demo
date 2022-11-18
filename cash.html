@@ -36,10 +36,11 @@
                     var num = item.likes;
                     var n = parseInt(num);
                     total += c*n;
-                    p += "<p> 總共: ";
-                    p += String(total);
                 }
             }
+            p +="<p> 總價:";
+            p += String(total);
+            p +="  元<p>";
             let div=document.getElementById('guestbook');
             div.innerHTML=p;
         })
