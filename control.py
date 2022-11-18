@@ -19,6 +19,17 @@ def genList():
     return (result)
 
 
+def gencartList():
+    jsonStr = form.getvalue('dat')
+    dat = json.loads(jsonStr)
+    msgList = msgModel.getcartList()  # get an array from model
+    result = {
+        "dat": dat,
+        "list": msgList
+    }
+    return (result)
+
+
 def likeit(xid):
     msgModel.like(xid)
 
@@ -35,8 +46,11 @@ except:
 para = ()
 # we can start accessing DB now
 if act == 'g':  # get one record by xid
-    result = genList()
-    print(json.dumps(result, ensure_ascii=True))  # dump json string to client
+    result1 = genList()
+    print(json.dumps(result1, ensure_ascii=True))  # dump json string to client
+elif act == 'h':  # get one record by xid
+    result2 = gencartList()
+    print(json.dumps(result2, ensure_ascii=True))  # dump json string to client
 elif act == 'like':
     mid = int(form.getvalue('id'))
     # likeit(mid)

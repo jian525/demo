@@ -28,58 +28,28 @@
             list=data['list']; //the [] indexed format
             console.log(dat,list);
             let p="";
+            var total=0;
             for (item of list) {
                 if(item.likes>'0'){
-                    p +="<p> 編號: "
-                    p += item.id;
-                    p += "  價錢:";
-                    p += item.nick;
-                    p += " 購買數量:";
-                    p += item.likes;
-                    p += "</p>";
+                    var comm = item.nick;
+                    var c = parseInt(comm);
+                    var num = item.likes;
+                    var n = parseInt(num);
+                    total += c*n;
+                    p += "<p> 總共: ";
+                    p += String(total);
                 }
             }
             let div=document.getElementById('guestbook');
             div.innerHTML=p;
-    
         })
 }
-function killit(id) {
-	let msgID=document.getElementById(id).value;
-	console.log(id,msgID)
-	let mydat = new FormData();
-	action='del';
-	mydat.append( "id", msgID);
-	mydat.append( "o", action);
-
-	url="control.py";
-	fetch(url,{
-		method: 'POST', // or 'GET'
-		body: mydat
-	})
-	.then(function(res){
-		return res.text();
-	})
-	.then(function(data){
-		console.log(data);
-		loadMsg();
-	})
-}   
 </script>
 </head>
 <body>
-<p>購物車</p>
+<p>結帳</p>
 <a href="./main.html">返回頁面</a>
-<div >
-<fieldset>
-<form method="post" action="delMsg.py"> <br>
-刪除商品:<input type='text' id='i' name='i'><input type='button' value='del' onclick="killit('i')">
-</form>
-</fieldset>
-</div>
-<button onclick='loadMsg()'>購買清單</button>
-<a href="./cash.html">結帳</a>
+<button onclick='loadMsg()'>計算</button>
 <div class='myCSS' id='guestbook'></div>
 </body>
 </html>
-

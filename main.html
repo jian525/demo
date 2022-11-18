@@ -40,12 +40,16 @@ function loadMsg() {
 		console.log(dat,list);
 		let p="";
 		for (item of list) {
-			p += "<p> 商品:";
+			p += "<p> 編號:";
+			p += item.id;
+			p += "  商品:";
 			p += item.title;
 			p += "  價錢:";
 			p += item.nick;
 			p += "  數量:";
 			p += item.msg;
+			p += " 加入購物車數量:";
+			p += item.likes;
 			p += "</p>";
 		}
 		let div=document.getElementById('guestbook');
@@ -105,7 +109,7 @@ function killit(id) {
 <a href='cart.html'>購物車</a><hr>
 
 <form method="post" action="addcom.py"></form>
-新增商品: <input type='text' id='j' name='j'><input type='submit' value='add' onclick="likeit('j')">
+加入購物車的商品: <input type='text' id='j' name='j'><input type='submit' value='add' onclick="likeit('j')">
 <hr>
 <button onclick='loadMsg()'>目前商品庫存</button>
 <div class='myCSS' id='guestbook'></div>

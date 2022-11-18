@@ -3,12 +3,78 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>add commodity</title>
+<script>
+function loadMsg() {
+        let dat={
+            p1: 10,
+            p2: "ok"
+        }
+        let action='h';
+        let mydat = new FormData();
+        mydat.append( "dat", JSON.stringify(dat) );
+        mydat.append( "o", action);
+    
+        url="control.py";
+        fetch(url,{
+            method: 'POST', // or 'GET'
+            body: mydat
+        })
+        .then(function(res){
+            //return res.text();
+            return res.json();
+        })
+        .then(function(data){
+            dat = data.dat; //the dot format
+            list=data['list']; //the [] indexed format
+            console.log(dat,list);
+            let p="";
+            for (item of list) {
+                p +="<p> 編號: "
+                p += item.id;
+                p += "  價錢:";
+                p += item.nick;
+                p += " 購買數量:";
+                p += item.likes;
+                p += "</p>";
+            }
+            let div=document.getElementById('guestbook');
+            div.innerHTML=p;
+    
+        })
+}
+function killit(id) {
+	let msgID=document.getElementById(id).value;
+	console.log(id,msgID)
+	let mydat = new FormData();
+	action='del';
+	mydat.append( "id", msgID);
+	mydat.append( "o", action);
+
+	url="control.py";
+	fetch(url,{
+		method: 'POST', // or 'GET'
+		body: mydat
+	})
+	.then(function(res){
+		return res.text();
+	})
+	.then(function(data){
+		console.log(data);
+		loadMsg();
+	})
+}
+</script>
 </head>
 <body>
-<p>倉庫</p>
+<a href="main.html">回主頁</a>
 <hr>
 <div>
 <fieldset>
+<legend>倉庫</legend>    
+<form method="post" action="delMsg.py">
+輸入要刪除的號碼: <input type='text' id='i' name='i'><input type='button' value='del' onclick="killit('i')">
+</form>
+新增商品:
 <form method="post" action="addMsg.py">
 價錢<input type="text" name='n'><br>
 商品<input type="text" name='title'><br>
