@@ -2,18 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>add msg</title>
+<title>cart</title>
 </head>
 <body>
-<p>倉庫</p>
-<hr>
+<p>購物車</p>
+<a href="./main.html">返回頁面</a>
 <div >
 <fieldset>
-<form method="post" action="addMsg.py">
-價錢<input type="text" name='n'><br>
-商品<input type="text" name='title'><br>
-數量<input type="text" name='msg'><br>
-<input type="submit">
+<form method="post" action="delMsg.py">
+</form> <br>
+刪除商品: <input type='text' id='i' name='i'><input type='button' value='del' onclick="killit('i')">
 </form>
 </fieldset>
 </div>

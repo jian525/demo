@@ -1,7 +1,7 @@
 #!C:\Users\ASUS\AppData\Local\Programs\Python\Python310\python.exe
 # -*- coding: utf-8 -*-
 # 處理stdio輸出編碼，以避免亂碼
-import list
+import guestbook as gb
 from dbConfig import conn, cur
 import cgi
 import codecs
@@ -20,23 +20,17 @@ print("""
 <title>Guestbook: ListMsg</title>
 </head>
 <body>
-留言板 <a href='addMsgForm.html'> 新增留言 </a><hr>
-<form method="post" action="delMsg.py">
-輸入要刪除的號碼: <input type='text' name='i'><input type='submit'>
-</form> <br>
-<form method="post" action="likeMsg.py">
-輸入要按讚的號碼: <input type='text' name='i'><input type='submit'>
-</form>
- <hr>
+倉庫 <a href='addMsgForm.html'> 新增商品 </a><hr>
 """)
-msgList = list.getList()
+msgList = gb.getList()
 # 查詢
 '''
 sql="select id, title,msg, nickname,likes from guestbook order by likes desc;"
 cur.execute(sql)
 records = cur.fetchall()
 '''
-for (id, title, msg) in msgList:
-    #print(f"<p>編號{id}: 留言人:{nick} 標題:{title} 內容:{msg} 按讚數:{likes}</p>")
-    print(f"<p>編號{id}: 標題:{title} 內容:{msg}</p>")
+for (id, title, msg, nick, likes) in msgList:
+    #print(f"<p>編號{id}: 標題:{title} 內容:{msg} 按讚數:{likes}</p>")
+    print(f"<p>編號{id}:  商品:{title} 價錢:{nick} 數量:{msg} </p>")
+
 print("</body></html>")

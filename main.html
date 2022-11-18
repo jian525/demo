@@ -99,24 +99,12 @@ function killit(id) {
 </script>
 </head>
 <body>
-<a href='addMsgForm.html'>購物車</a><hr>
-<form method="post" action="delMsg.py">
+<a href='password.html'>管理者</a>
+<a href='cart.html'>購物車</a><hr>
+
 </form> <br>
-新增商品<select name="商品" id="j" name="j">
-	<option value="" selected>請選擇商品</option>
-	<option value="cloth">1</option>
-	<option value="socks">2</option>
-	<option value="pants">3</option>
-</select>
-<input type='button' value='add' onclick="likeit('j')">
-<br>
-刪除商品<select name="商品" id="i" name="i">
-	<option value="" selected>請選擇商品</option>
-	<option value="cloth">1</option>
-	<option value="socks">2</option>
-	<option value="pants">3</option>
-</select>
-<input type='button' value='del' onclick="killit('i')">
+<form method="post" action="addMsg.py"></form>
+新增商品: <input type='text' id='j' name='j'><input type='button' value='add' onclick="likeit('j')">
 <hr>
 
 <button onclick='loadMsg()'>目前商品庫存</button>
@@ -133,6 +121,7 @@ function killit(id) {
 </html>
 
 <script language="javascript">
+
 const vm6= Vue.createApp({
 	data() {
 		return {
