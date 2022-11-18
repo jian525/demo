@@ -34,16 +34,18 @@ function loadMsg() {
 		let div=document.getElementById('guestbook');
 		div.innerHTML=data;
 */		
-		
 		//example of returning results as a json object
 		dat = data.dat; //the dot format
 		list=data['list']; //the [] indexed format
 		console.log(dat,list);
 		let p="";
 		for (item of list) {
-			p += "<p>";
+			p += "<p> 商品:";
 			p += item.title;
-			p += item.likes;
+			p += "  價錢:";
+			p += item.nick;
+			p += "  數量:";
+			p += item.msg;
 			p += "</p>";
 		}
 		let div=document.getElementById('guestbook');
@@ -56,8 +58,7 @@ function likeit(id) {
 	let msgID=document.getElementById(id).value;
 	console.log(id,msgID)
 	let mydat = new FormData();
-	//action='like';
-	action='add';
+	action='like';
 	mydat.append( "id", msgID);
 	mydat.append( "o", action);
 
@@ -96,50 +97,18 @@ function killit(id) {
 		loadMsg();
 	})
 }
+
 </script>
 </head>
 <body>
 <a href='password.html'>管理者</a>
 <a href='cart.html'>購物車</a><hr>
 
-</form> <br>
-<form method="post" action="addMsg.py"></form>
-新增商品: <input type='text' id='j' name='j'><input type='button' value='add' onclick="likeit('j')">
+<form method="post" action="addcom.py"></form>
+新增商品: <input type='text' id='j' name='j'><input type='submit' value='add' onclick="likeit('j')">
 <hr>
-
 <button onclick='loadMsg()'>目前商品庫存</button>
 <div class='myCSS' id='guestbook'></div>
 
-<div id="app-6">
-	<p>{{ message }}</p>
-	<input v-model="message">
-    <button v-on:click="loadData">目前商品庫存</button>
-    <div v-for="(value, key, index) in dat">
-	{{ index+1 }}. {{ key }}: {{ value }}
-	<br>
 </body>
 </html>
-
-<script language="javascript">
-
-const vm6= Vue.createApp({
-	data() {
-		return {
-			message: 'Hello Vue!',
-			dat: []
-		}
-	},
-	methods: {
-		loadData: function () {
-			const that=this;
-			fetch('json.php')
-			.then(function(response) {
-				return response.json();
-			})
-			.then(function(myJson) {
-				that.dat = myJson;
-			});
-		}
-	}
-}).mount("#app-6");
-</script>

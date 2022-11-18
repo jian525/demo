@@ -37,12 +37,10 @@ para = ()
 if act == 'g':  # get one record by xid
     result = genList()
     print(json.dumps(result, ensure_ascii=True))  # dump json string to client
-# elif act == 'like':
-   # mid = int(form.getvalue('id'))
-    # likeit(mid)
-elif act == 'add':
+elif act == 'like':
     mid = int(form.getvalue('id'))
-    msgModel.add(mid)
+    # likeit(mid)
+    msgModel.like(mid)
 elif act == 'del':
     mid = int(form.getvalue('id'))
     msgModel.kill(mid)

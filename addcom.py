@@ -16,7 +16,7 @@ print("""
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>範例1</title>
+<title></title>
 </head>
 <body>
 """)
@@ -27,7 +27,8 @@ form = cgi.FieldStorage()
 title = form.getvalue('title')
 msg = form.getvalue('msg')
 nick = form.getvalue('n')
-gb.addMsg(title, nick, msg)
-print("商品已存入!")
-print("<br><a href='listMsg.py'>回上一頁</a>")
+gb.addMsg(title, msg, nick)
+#gb.addMsg(title, msg)
+print("商品已加入購物車!")
+print("<br><a href='main.html'>回上一頁</a>")
 print("</body></html>")

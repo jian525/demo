@@ -20,7 +20,7 @@ print("""
 <title>Guestbook: ListMsg</title>
 </head>
 <body>
-倉庫 <a href='addMsgForm.html'> 新增商品 </a><hr>
+倉庫 <a href='addMsgForm.html'> 新增商品 </a> <a href='main.html'> 返回首頁 </a><hr>
 """)
 msgList = gb.getList()
 # 查詢
@@ -29,8 +29,7 @@ sql="select id, title,msg, nickname,likes from guestbook order by likes desc;"
 cur.execute(sql)
 records = cur.fetchall()
 '''
-for (id, title, msg, nick, likes) in msgList:
-    #print(f"<p>編號{id}: 標題:{title} 內容:{msg} 按讚數:{likes}</p>")
+for (id, title, nick, msg) in msgList:
     print(f"<p>編號{id}:  商品:{title} 價錢:{nick} 數量:{msg} </p>")
 
 print("</body></html>")
