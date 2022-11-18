@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script type="text/javascript" src="https://unpkg.com/vue@next"></script>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>頁面</title>
+<script>
+function loadMsg() {
+	let dat={
+		p1: 10,
+		p2: "ok"
+	}
+	let action='g';
+	let mydat = new FormData();
+	mydat.append( "dat", JSON.stringify(dat) );
+	mydat.append( "o", action);
+
+	url="control.py";
+	fetch(url,{
+		method: 'POST', // or 'GET'
+		body: mydat
+	})
+	.then(function(res){
+		//return res.text();
+		return res.json();
+	})
+	.then(function(data){
+		
+		//example of returning results as text
+		/*
+		console.log(data)
+
+		let div=document.getElementById('guestbook');
+		div.innerHTML=data;
+*/		
+		
+		//example of returning results as a json object
+		dat = data.dat; //the dot format
+		list=data['list']; //the [] indexed format
+		console.log(dat,list);
+		let p="";
+		for (item of list) {
+			p += "<p>";
+			p += item.title;
+			p += item.likes;
+			p += "</p>";
+		}
+		let div=document.getElementById('guestbook');
+		div.innerHTML=p;
+
+	})
+}
+
+function likeit(id) {
+	let msgID=document.getElementById(id).value;
+	console.log(id,msgID)
+	let mydat = new FormData();
+	//action='like';
+	action='add';
+	mydat.append( "id", msgID);
+	mydat.append( "o", action);
+
+	url="control.py";
+	fetch(url,{
+		method: 'POST', // or 'GET'
+		body: mydat
+	})
+	.then(function(res){
+		return res.text();
+	})
+	.then(function(data){
+		console.log(data);
+		loadMsg();
+	})
+}
+
+function killit(id) {
+	let msgID=document.getElementById(id).value;
+	console.log(id,msgID)
+	let mydat = new FormData();
+	action='del';
+	mydat.append( "id", msgID);
+	mydat.append( "o", action);
+
+	url="control.py";
+	fetch(url,{
+		method: 'POST', // or 'GET'
+		body: mydat
+	})
+	.then(function(res){
+		return res.text();
+	})
+	.then(function(data){
+		console.log(data);
+		loadMsg();
+	})
+}
+</script>
+</head>
+<body>
+<a href='addMsgForm.html'>購物車</a><hr>
+<form method="post" action="delMsg.py">
+</form> <br>
+新增商品<select name="商品" id="j" name="j">
+	<option value="" selected>請選擇商品</option>
+	<option value="cloth">1</option>
+	<option value="socks">2</option>
+	<option value="pants">3</option>
+</select>
+<input type='button' value='add' onclick="likeit('j')">
+<br>
+刪除商品<select name="商品" id="i" name="i">
+	<option value="" selected>請選擇商品</option>
+	<option value="cloth">1</option>
+	<option value="socks">2</option>
+	<option value="pants">3</option>
+</select>
+<input type='button' value='del' onclick="killit('i')">
+<hr>
+
+<button onclick='loadMsg()'>目前商品庫存</button>
+<div class='myCSS' id='guestbook'></div>
+
+<div id="app-6">
+	<p>{{ message }}</p>
+	<input v-model="message">
+    <button v-on:click="loadData">目前商品庫存</button>
+    <div v-for="(value, key, index) in dat">
+	{{ index+1 }}. {{ key }}: {{ value }}
+	<br>
+</body>
+</html>
+
+<script language="javascript">
+const vm6= Vue.createApp({
+	data() {
+		return {
+			message: 'Hello Vue!',
+			dat: []
+		}
+	},
+	methods: {
+		loadData: function () {
+			const that=this;
+			fetch('json.php')
+			.then(function(response) {
+				return response.json();
+			})
+			.then(function(myJson) {
+				that.dat = myJson;
+			});
+		}
+	}
+}).mount("#app-6");
+</script>

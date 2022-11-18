@@ -1,0 +1,48 @@
+﻿<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--
+<script type="text/javascript" src="https://unpkg.com/vue/dist/vue.global.prod.js"></script>
+-->
+<script type="text/javascript" src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body >
+<fieldset>
+	<legend>app-4</legend>
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }} {{todo.status}}
+    </li>
+  </ol>
+<button v-on:click="loadData">load json to app-6 </button>
+
+</div>
+</fieldset>
+
+
+<script language="javascript">
+const vm6= Vue.createApp({
+	data() {
+		return {
+			message: 'Hello Vue!',
+			dat: []
+		}
+	},
+	methods: {
+		loadData: function () {
+			const that=this;
+			fetch('json.php')
+			.then(function(response) {
+				return response.json();
+			})
+			.then(function(myJson) {
+				that.dat = myJson;
+			});
+		}
+	}
+}).mount("#app-4");
+
+</script>
+
+</body></html>

@@ -1,0 +1,70 @@
+﻿<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="vue.global.js"></script>
+</head>
+
+<body >
+<div id="listView">
+	<input type='button' value="新增會員" @click='addRecord()'>
+	<hr>
+	  <table id='baseSearchResults' class='searchResults'>
+	  <thead>
+		<tr>
+		  <th>會員編號</th>
+		  <th>姓名</th>
+		  <th>電話</th>
+		  <th>-</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr v-for='rec in dat' >
+			<td>{{ rec.id }}-{{ rec.xid }}</td>
+			<td>{{ rec.name }}</td>
+			<td>{{ rec.phone }}</td>
+			<td><button @click='editRecord(rec.xid, rec.name)'>修改</button> 
+			<button v-if="role==1 || role==9" @click='deleteRecord(rec.xid)'>刪</button> | 
+			</td>
+		</tr>
+	   </tbody>
+	</table>
+	<div v-if="recCount==0">查無資料</div>	
+	</div>
+</div>
+
+<div id='editView'>
+	會員編號:<input type='text' v-model='dat.id' disabled /><br/>
+	姓名:	<input type='text' maxlength='5' v-model='dat.name'  /><br/>
+	性別: 	<select v-model='dat.sex'  ><option value='男'>男</option><option value='女'>女</option></select><br/>
+	通訊地址: <input type='text' maxlength='36' v-model='dat.address'  /><br/>
+	手機: <input type='text' maxlength='15' v-model='dat.phone'  /><br/>
+	<hr/>
+	<input type='button' v-if="role>0" v-on:click='submitit()' value='Save'>
+	<input type='button' onclick='cleanMain()' value='Cancel'><br/>
+</div>
+
+
+<script language="javascript">
+const vm6= Vue.createApp({
+	data() {
+		return {
+			message: 'Hello Vue!',
+			dat: []
+		}
+	}
+}).mount("#app-6");
+
+// Define a new component called todo-item
+
+//load json from website, then deploy it into div
+function loadData() {
+fetch('json.php')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+	vm6.dat = myJson;
+  });
+}
+</script>
+
+</body></html>
