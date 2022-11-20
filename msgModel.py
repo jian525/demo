@@ -4,7 +4,7 @@ from dbConfig import conn, cur
 
 def getList():
     # 查詢
-    sql = "select id, title,msg,likes, nickname from guestbook order by likes desc;"
+    sql = "select id, title,msg,likes, nickname from guestbook order by id desc;"
     cur.execute(sql)
 
     records = cur.fetchall()
